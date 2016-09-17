@@ -1,0 +1,5 @@
+hug==2.1.2
+gunicorn==19.6.0
+sqlalchemy
+psycopg2
+alembic
