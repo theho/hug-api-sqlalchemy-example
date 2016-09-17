@@ -19,7 +19,6 @@ class SQLAlchemy:
 
     def init_app(self, app, conn_str):
         self._conn_str = conn_str
-
         @hug.request_middleware(api=app)
         def process_data(request, response):
             self.connect()

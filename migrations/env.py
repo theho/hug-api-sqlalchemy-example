@@ -22,7 +22,8 @@ from api import app, g
 from api.models._base import Base
 
 target_metadata = Base.metadata
-config.set_main_option('sqlalchemy.url', g.config.SQLALCHEMY_DATABASE_URI)
+if not config.get_main_option('sqlalchemy.url'):
+    config.set_main_option('sqlalchemy.url', g.config.SQLALCHEMY_DATABASE_URI)
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
@@ -52,10 +53,13 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
-        prefix='sqlalchemy.',
-        poolclass=pool.NullPool)
+
+    connectable = config.get_main_option('connectable')
+    if not connectable:
+        connectable = engine_from_config(
+            config.get_section(config.config_ini_section),
+            prefix='sqlalchemy.',
+            poolclass=pool.NullPool)
 
     with connectable.connect() as connection:
         context.configure(
