@@ -1,6 +1,7 @@
 import hug
 from api.g import db
 from api import g
+from api.models.users import User
 
 @hug.get('/')
 def root():
