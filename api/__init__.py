@@ -1,3 +1,3 @@
-from .db import SQLAlchemy
+from api.ext.db import SQLAlchemy
 
 
