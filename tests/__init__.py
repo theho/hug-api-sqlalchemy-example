@@ -2,6 +2,7 @@ import os
 
 import unittest
 from sqlalchemy_utils import database_exists, create_database, drop_database
+from sqlalchemy import create_engine
 
 from alembic import command
 from alembic.config import Config
@@ -25,16 +26,13 @@ class APITest(unittest.TestCase):
         alembic_cfg.set_main_option('sqlalchemy.url', TESTDB_URI)
 
         command.upgrade(alembic_cfg, 'head')
+        db.engine = create_engine(TESTDB_URI)
+
 
         # replace db with test db connection string
-        db._conn_str = TESTDB_URI
+
 
     @classmethod
     def tearDownClass(cls):
         drop_database(TESTDB_URI)
 
-    def setUp(self):
-        db.connect()
-
-    def tearDown(self):
-        db.close()

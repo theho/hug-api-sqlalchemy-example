@@ -10,7 +10,6 @@ class SQLAlchemy:
         self._conn_str = None
 
     def connect(self, **settings):
-        self.engine = create_engine(self._conn_str, **settings)
         sm = orm.sessionmaker(bind=self.engine, autoflush=True, autocommit=True, expire_on_commit=True)
         self.session = orm.scoped_session(sm)
 
@@ -19,6 +18,8 @@ class SQLAlchemy:
 
     def init_app(self, app, conn_str):
         self._conn_str = conn_str
+        self.engine = create_engine(self._conn_str)
+
         @hug.request_middleware(api=app)
         def process_data(request, response):
             self.connect()
@@ -28,4 +29,3 @@ class SQLAlchemy:
             self.close()
 
         return app
-
