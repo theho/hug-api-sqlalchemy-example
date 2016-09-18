@@ -14,6 +14,7 @@ class SQLAlchemy:
         self.session = orm.scoped_session(sm)
 
     def close(self):
+        self.session.flush()
         self.session.close()
 
     def init_app(self, app, conn_str):

@@ -8,4 +8,4 @@ def init_app(app):
 
     @hug.response_middleware(api=app)
     def process_data(request, response, resource):
-        print('auth_resp')
+        print('auth_resp')k
