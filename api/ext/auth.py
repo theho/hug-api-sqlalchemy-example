@@ -1,6 +1,7 @@
 import hug
 import jwt
 
+
 def init_app(app):
     @hug.request_middleware(api=app)
     def process_data(request, response):
@@ -12,8 +13,3 @@ def init_app(app):
 
         except KeyError as e:
             print('no Authorization')
-
-
-    @hug.response_middleware(api=app)
-    def process_data(request, response, resource):
-        print('auth_resp')
