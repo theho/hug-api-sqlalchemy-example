@@ -6,3 +6,4 @@ alembic
 nose2
 sqlalchemy_utils
 bcrypt
+PyJWT
