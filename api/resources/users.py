@@ -10,7 +10,6 @@ from sqlalchemy.orm.exc import NoResultFound
 
 @hug.get('/')
 def root():
-    # print(list(db.session.execute('select * from profile')))
     return "Users"
 
 
